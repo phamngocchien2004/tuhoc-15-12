@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        table , th , td {
+            border: 1px solid grey;
+            border-collapse: collapse;
+            padding: 5px;
+        }
+        table tr:nth-child(even) {
+            background-color: #ffffff;
+        }
+        table , tr:nth-child(odd) {
+            background-color: #f1f1f1;
+        }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body>
+    <div ng-app="myApp" ng-controller="myCtrl">
+        <table>
+            <tr ng-repeat="x in names">
+                <td>{{ x.Name}}</td>
+                <td>{{ x.Country }}</td>
+            </tr>
+        </table>
+    </div>
+    <script>
+        var app=angular.module('myApp', []);
+        app.controller('myCtrl',function($scope,$http) {
+            $http.get('customers_mysql.php').then(function(response) {
+                $scope.names=response.data.records;
+            });
+        });
+    </script>
+</body>
+</html>
